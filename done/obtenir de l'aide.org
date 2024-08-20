@@ -1,0 +1,759 @@
+
+* script
+
+:action:
+Ouvrir emacs.
+Ouvrir ansi-term.
+:end:
+
+#+begin_src bash
+  man intro
+#+end_src
+
+Le script de cette vidéo sera disponible sur github et je vais mettre
+le lien dans la description.
+
+Naturellement, avant internet, si on avait besoin d'informations ou
+d'aide sur un sujet, l'une des seules solution était d'aller à la
+bibliothèque pour trouver un livre qui a l'information qu'on cherche.
+
+Si vous êtes des p'tit jeunes de mon âge, malheureusement vous trouvez
+peut-être que c'est désagréable de lire.
+
+C'est vrai que si je m'imagine chercher une information dans les
+livres que mes profs de français m'ont fait acheter et lire, je
+m'attends à y passer plusieurs heures.
+
+Sur un ordinateur, y'a aucune raison pour que ça me prenne des heures
+pour trouver une information basique, parce que mon ordinateur peux
+contenir de grandes quantités de texte, qu'un programme peut
+chercher du texte très rapidement, et qu'on peut d'avance organiser le
+texte pour que le texte se traverse rapidement.
+
+De la même façon que lorsqu'on est enfant, on apprends à lire et
+qu'ensuite on lit pour apprendre, ici on apprends à utiliser le
+système d'aide pour qu'ensuite on puisse s'aider à utiliser les autres
+programmes.
+
+Les systèmes d'aide principaux comme ~man~ et ~info~ sont conçu pour
+qu'on puisse découvrir ~man~ et ~info~, et les autres programmes, en
+utilisant ~man~ et ~info~ seulement.
+
+Dans cette vidéo je vais vous montrer comment utiliser les systèmes
+d'aide, et je vais vous donner plein d'informations que vous n'avez
+pas besoin si vous êtes un "débutant".
+
+
+** -h --help
+
+#+begin_src bash
+  file -h
+  file --help
+#+end_src
+
+Pour commencer, la très grande majorité des commandes implémentent les
+arguments ~-h~ et ~--help~.
+
+Je sais pas si ces arguemnts sont une conversion, mais c'est au
+minimum une loi non-écrite que ~--help~, ça affiche un message d'aide.
+
+#+begin_src bash
+  ls -h
+#+end_src
+
+Par contre, certaines commandes utilisent ~-h~ comme argument, la
+commande ~ls~ en est un example, alors elles ont au moins ~--help~.
+
+#+begin_src bash
+  ls --help
+#+end_src
+
+La commande ~ls~ utilise l'argument ~-h~ pour lui indiquer qu'elle
+doit afficher les tailles des fichiers d'une façon =human readable=.
+
+#+begin_src bash
+  ls -l
+#+end_src
+
+Avec ~ls -l~ on affiche les fichiers avec "plus d'informations".
+
+#+begin_src bash
+  ls -l -h
+#+end_src
+
+Avec l'argument ~-h~, ça affiche l'unité avec la taille des fichiers.
+
+Les commandes qui n'implémentent pas au moins ~--help~ sont
+détestable. Ça arrive très rarement qu'une commande n'implémente aucun
+de ces 2 arguments, mais vous pouvez en rencontrer si vous télécharger
+des programmes très peux utilisés pour des tâches très spécifiques,
+par example.
+
+** man
+
+Habituellement, les commandes offrent une quantité d'information
+limité via ~--help~, et le manuel contient plus d'informations.
+
+Comme j'ai dis au début de la vidéo, avec une quantité de choses
+minimale à apprendre, les systèmes d'aide peuvent se découvrir
+d'avantage à l'intérieur d'eux-mêmes.
+
+Alors juste en sachant que la commande pour consulter les manuels
+c'est ~man~, je vais juste écrire ~man~ et voir où ça m'ammène.
+
+:action:
+Faire la commande ~man~.
+:end:
+
+
+*** man man
+
+Bon ~man~ nous dit de faire la commande ~man man~.
+
+:action:
+Faire la commande ~man man~.
+:end:
+
+Bon là mon terminal a complètement changé.
+
+En premier on peut remarquer la ligne blanche en bas de l'écran.
+
+Ça nous indique de faire ~h~ pour avoir de l'aide ou ~q~ pour quitter.
+
+On a aussi la section =SYNOPSIS= en haut.
+
+Je vais vous expliquer la syntax de la section =SYNOPSIS= plus tard,
+mais pour l'instant, on peut comprendre que =SYNOPSIS= montre des
+sortes d'examples génériques de comment utiliser la commande ~man~.
+
+Y'a aussi la section =DESCRIPTION=.
+
+:action:
+Mettre ansi-term en "line run".
+~C-r chacun RET~.
+Sélectionner le texte de la phrase jusqu'à "le nom d'un programme".
+:end:
+
+En lisant un peu =DESCRIPTION=, on sait que =page= peut être plusieurs
+choses, *dont le nom d'un programme*.
+
+:action:
+Sélectionner la première ligne de =SYNOPSIS=.
+:end:
+
+Donc, en lisant la première ligne de =SYNOPSIS=, on peut deviner qu'en
+faisant ~man man~, ~man~ nous affiche la page de manuel pour le
+programme ~man~.
+
+On peut essayer de consulter le manuel de la commande ~ls~ avec ce
+qu'on vient de deviner.
+
+:action:
+Désélectionner le texte.
+Remettre ansi-term en "char run".
+~q~.
+Faire la commande ~man ls~.
+:end:
+
+Alors pour consulter le manuel d'une commande, il suffit juste
+d'appeler ~man~ et lui donner le nom de notre commande en premier
+argument.
+
+Maintenant on va voir comment naviguer dans le texte du manuel.
+
+** less
+
+:action:
+~q~.
+Faire la commande ~man intro~.
+Scroller jusqu'en bas complètement.
+Line run.
+~C-r getting RET~.
+Descendre et sélectionner la dernière ligne du paragraphe.
+:end:
+
+Lorsque vous utilisez ~man~ pour consulter un manuel, ~man~ prépare
+seulement le texte pour la largeur de votre terminal et ensuite il
+envoit le texte à un autre programme, un =pager=, qui est
+habituellement ~less~.
+
+C'est cet autre programme qui vous affiche le texte et vous permet de
+naviguer à l'intérieur.
+
+Pour naviguer dans les pages de manuel, il faut donc apprendre un peu
+comment utiliser ~less~.
+
+Pour vous montrer ~less~, je vais utiliser le script de la vidéo.
+
+:action:
+Désélectionner le text.
+Mettre ansi-term en "char run".
+Quitter man.
+Faire la commande ~less "<nom du fichier .org>"~.
+:end:
+
+Quand vous utilisez ~less~, à tout moment, si vous avez oublié comment
+le contrôler, appuyez sur ~h~ pour ~help~.
+
+:action:
+~h~.
+:end:
+
+Utilisez les flèches haut bas gauche droite pour naviguer dans le
+texte.
+
+~Page up~ et ~page down~ pour scroller une écran complet.
+
+:action:
+scroller jusqu'en bas
+:end:
+
+Ça peut faire peur la quantité de commandes que ~less~ supporte, mais
+la plupart d'entre elles je ne les connais pas. Je vais juste vous
+montrer certaines commandes pratique.
+
+On utilise ~q~ pour quitter la page d'aide ou pour quitter ~less~.
+
+Les flèches sont loins à droite du clavier, alors y'a d'autres touches
+plus au milieu du clavier pour se déplacer.
+
+Il y a ~j~ et ~k~ pour scroller vers le bas et vers le haut, comme
+dans vim.
+
+Il y a aussi ~C-n~, ~C-p~, ~C-v~, et ~M-v~ comme dans emacs.
+
+On peut faire une recherche en faisant un ~/~.
+
+:action:
+~/ m a n RET~
+:end:
+
+Après avoir tapé le texte à rechercher, on appuit sur ~enter~.
+
+On appuis sur ~n~ pour ou ~N majuscule~ pour passer au résultat
+suivant ou précédant.
+
+Pis ça c'est la majorité des commandes ~less~ que je connais, et juste
+avec ça chu capable de me servir de ~man~ très rapidement pour
+consulter la description d'arguments que je ne connais pas dans des
+scripts shell.
+
+
+
+** Comment lire la section syntaxe/synopsis
+
+Maintenant qu'on est capable de naviger dans ~less~, on peut retourner
+voir ~man man~ pour comprendre comment lire la section =SYNOPSIS=.
+
+:action:
+~q~.
+Faire la commande ~man man~.
+~C-v~.
+
+// sélectionner le paragraphe qui sera au milieu de l'écran
+
+Mettre ansi-term en "line run".
+~C-r abc RET~.
+~M-h~.
+:end:
+
+En gros, y'a 3 choses importantes à retenir.
+
+D'abord, les parties entre *square brackets* ~[~ ~]~ sont
+optionnelles: vous le mettez si ça vous tente.
+
+Ensuite, les parties séparés par une barre verticale ~|~ sont
+mutuellement exclusives: vous ne pouvez pas les utiliser en même temps
+dans la même commande.
+
+Finalement, quand y'a plusieurs examples de la commande dans la
+section =SYNOPSIS=, c'est que vous ne pouvez utiliser qu'une seule
+forme de la commande à la fois.
+
+Je vais commencer par vous faire un example avec la commande ~yes~.
+
+:action:
+Désélectionner le texte.
+Mettre ansi-term en "char run".
+~q~.
+
+// ouvrir le manuel de yes dans emacs.
+~C-x M-x man RET yes RET~.
+
+Splitter mon écran de emacs en 2: man à gauche, ansi-term à droite.
+:end:
+
+// *IMPROVISE*.
+
+
+
+
+J'ai un 2e example pour vous: ~file~.
+
+:action:
+Faire la commande ~man file~.
+*IMPROVISER* en parlant de la partie *[-bcdEhiklLNnprsSvzZ0]*.
+:end:
+
+
+
+J'ai un dernier example pour vous: ~git branch~.
+
+Avant d'ouvrir une page de manuel de git, je veux juste vous dire que
+je suis mitigé sur les pages de manuel de git.
+
+D'un côté, les pages de manuel de git sont de très bonne qualité.
+
+De l'autre côté, elles sont très mauvaise si vous n'êtes pas déjà
+assez familié avec git.
+
+Mais puisque je veux juste vous présenter des examples de section
+=SYNOPSIS=, alors on est plus dans le côté de très bonne qualité.
+
+:action:
+*IMPROVISE* example ~man git-branch~.
+
+*IMPROVISER* finir avec ~emacs~ qui a une seule fenêtre, qui affiche
+~ansi-term~.
+
+Faire la commande ~man man~.
+:end:
+
+
+** trucs divers avec man
+
+Ici j'ai une section de la vidéo où je vais passer très rapidement sur
+plusieurs commandes en lien avec man, parce que ces commandes sont
+beaucoup moins utiles.
+
+Aussi, c'est rare que j'utilise les commandes apropos et whatis, alors
+je pourrais me tromper sur certains détails.
+
+
+*** Sections de manuels (1, 3) pour l'aide en C
+
+Comme on peut le voir sur la première ligne de =SYNOPSIS= de ~man~, on
+peut optionnellement donner une "section" en plus d'une page.
+
+Dans les ~man pages~, y'a deux choses qu'on appelle "section" et qu'il
+faut différencier: À l'intérieur d'une page, y'a des noms de chapitre
+écrit en majuscule qu'on appelle des "section".
+
+L'autre chose qu'on appelle une "section" c'est des dossiers différent
+dans ~/usr/share/man~ où man va aller chercher le fichier portant le
+nom que vous donner.
+
+:action:
+// Descendre 3 lignes pour afficher au complet les différentes sections
+~C-n~.
+~C-n~.
+~C-n~.
+:end:
+
+Y'existe 9 sections différentes qui sont numérotés de 1 à 9.
+
+La section 3, par example, c'est les fonctions des bibliothèques en C.
+
+La section 1, c'est pour les commandes qu'on utilise dans le shell.
+
+:action:
+Faire la commande ~man printf~.
+:end:
+
+Si j'écris ~man printf~, j'obtiens le manuel de la commande printf.
+
+Si à la place j'indique la section 3, je vais avoir l'aide pour la
+fonction printf en C.
+
+:action:
+~q~.
+Faire la commande ~man 3 printf~.
+:end:
+
+
+*** mandb
+
+Plusieurs des commandes suivantes utilisent une base de données généré
+d'avance pour fonctionner, sinon ces commandes serait lente à chaque
+utilisations.
+
+J'ai jamais eu besoin d'updater la base de données manuellement, mais
+je pense que la commande c'est juste ~sudo mandb~.
+
+:action:
+~q~.
+Faire la commande ~sudo mandb~.
+:end:
+
+
+*** man -k et apropos
+
+Les commandes ~man -k~ et ~apropos~ font essentiellement la même
+chose: chercher un terme dans la section "name" et "description" de
+toutes les pages de manuel.
+
+#+begin_src bash
+  man -k emacs
+  apropos emacs
+#+end_src
+
+C'est rare que j'utilise ces commandes parce que ce cas d'aide précit
+est habituellement plus rapide en allant sur google, et si je cherche
+une commande, ça arrive que la commande que je choisis n'était pas
+installé sur mon système, donc je ne l'aurais jamais trouvé.
+
+*** whatis
+
+#+begin_src bash
+   whatis printf
+#+end_src
+
+La commande ~whatis~ me semble juste afficher le contenu de la section
+~name~ pour la / les pages de manuels données.
+
+*** man -K
+
+Si on veut chercher du texte à travers toutes les pages de manuels, on
+peut faire ~man -K~ *majuscule*.
+
+#+begin_src bash
+  man -K html
+#+end_src
+
+// *IMPROVISE* gosser avec ~man -K html~ et l'arrêter.
+
+
+Personnellement, j'aime pas ~man -K~ *majuscule*.
+
+Si on prends de la distances sur les commandes ~apropos~ et ~man -K~
+*majuscule*, quand vous êtes rendû à les utiliser, à mon avis google
+est souvent plus efficace et plus rapide parce que les commandes
+~apropos~ et ~man -K~ *majuscule* sont essentiellement des moteurs de
+recherche, et google est juste un moteur de recherche avec une
+meilleur base de données.
+
+*** +Le langage des pages de manuels+
+
+Les pages sont écrits dans un langage de macro/préprocesseur (j'ai pas
+investigué le sujet en profondeur, on n'a pas vraiment besoin de
+connaître ces langages si on ne fait qu'utiliser les pages de
+manuels).
+
+#+begin_src bash
+  zcat /usr/share/man/man1/dpkg.1.gz
+#+end_src
+
+roff
+
+#+begin_src bash
+  zcat /usr/share/man/man1/dpkg.1.gz | nroff
+#+end_src
+
+
+
+** info
+
+:action:
+Sortir de ~emacs~.
+Faire la commande ~info~.
+:end:
+
+Maintenant je vais parler de *INFO*.
+
+Info est une commande et un format de documentation alternatif à man.
+
+Info est un format de documentation pas très connu ou pas très
+apprécié parmis les gens, mais il est quand même important parce que
+c'est le projet GNU qui a inventé ~info~, et ils ont donc écrit la
+documentation de leurs ~core utils~ et autre projets importants dans
+ce format.
+
+Si vous sentez qu'avec ~info~ vous êtes submergé d'informations, je
+vous encourage à skipper la section de la vidéo qui parle d'info parce
+que vous pouvez vous en passer.
+
+:action:
+Quitter ~info~.
+Faire la commande ~man bash~.
+:end:
+
+L'objectif de ~info~ est d'améliorer la navigation en permettant
+d'avoir des liens et la possibilité de "revenir en arrière" comme dans
+un navigateur internet.
+
+En lisant des documents ~info~, j'ai aussi constaté qu'ils ont
+tendance à être des espèces de "walkthrough" du logiciel, souvent de
+meilleur qualité que ce qui peut exister sur internet.
+
+Ici j'ai ouvert le manuel de bash.
+
+Pour autant que je sache, le manuel de bash est juste une version
+applatie du document ~info~.
+
+:action:
+Scroller beaucoup de page vers le bas.
+:end:
+
+Lorsqu'un manuel devient très grand, ça peut devenir difficile de
+trouver une information rapidement.
+
+Et si vous pensez que le manuel de ~bash~ est long, c'est rien comparé
+au manuel de ~gcc~.
+
+:action:
+Quitter ~man~.
+Faire la commande ~info bash~.
+:end:
+
+Si on examine ~info bash~, au lieu d'avoir un immense pavé de texte
+simplement pré-formaté pour la largeur de mon terminal, on a une sorte
+de page d'accueil avec un menu en bas.
+
+:action:
+// Pour afficher la totalité du menu à l'écran:
+~C-v~.
+Faire 9 fois ~C-p~.
+:end:
+
+
+
+
+:action:
+~q~.
+Faire la commande ~info info~.
+:end:
+
+De la même sorte qu'on fait ~man man~ pour consulter le manuel de
+~man~ avec ~man~, on peut deviner la commande ~info info~.
+
+:action:
+C-s through RET
+:end:
+
+Ici on nous donne des commandes de base pour lire des documents
+~info~.
+
+:action:
+Faire des ~M-f~ pour déplacer le curseur de mots en mots sur la
+phrase, *ET lire la phrase suivante en même temps*.
+:end:
+
+*On peut lire le restant du manuel en appuyant sur espace et backspace
+pour aller en avant et en arrière.*
+
+:action:
+Faire ~q~. // quitter info
+Faire la commande ~info~.
+:end:
+
+Si on revient au menu principale de info en faisant la commande
+~info~, on voit sur les premières lignes qu'on peut lancer le =Info
+tutorial= en appuyant sur ~h~.
+
+:action:
+~h~.
+:end:
+
+Dans le système ~info~ les "pages" s'appellent des "nœuds".
+
+Les ~noeuds~ peuvent avoir un noeuds ~suivant~, ~précédant~, et
+~parent~.
+
+On peut appuyer sur ~n~, ~p~, ~u~, ou ~t~ pour passer aux noeuds
+~suivant~, ~précédant~, ~parent~, et ~top~.
+
+On peut aussi faire ~]~ et ~[~ pour passer au noeuds ~suivant~ et
+~précédant~, mais en entrant également à l'intérieur des sous ~menus~.
+
+On peut faire ~TAB~ et ~S-TAB~ pour téléporter le curseur au liens
+suivant et précédant.
+
+Quand le curseur est sur un lien, faire ~RET~ pour consulter le noeud
+référencé.
+
+Appuyer sur ~l~ pour revenir au noeud précédant.
+
+Comme dans ~man~, on peut faire des recherches intéractives avec ~C-s~
+et ~C-r~.
+
+En premier on fait ~C-s~ ou ~C-r~.
+
+On écrit du texte à rechercher.
+
+Ensuite appuyer à répétition sur ~C-s~ ou ~C-r~ pour rechercher vers
+l'avant ou vers l'arrière.
+
+*** info --usage xxx
+
+Une des fonctions du manuel est d'afficher la syntaxe d'une commande,
+donc quels options et dans quel ordre une commande prends ses
+arguments, avec la section =SYNOPSIS=.
+
+Dans les documents ~info~, c'est habituellement un noeud dédié, et ce
+noeud est souvent enterré.
+
+Pour afficher directement ce noeud, on peut donner ~--usage~ à info
+pour lui dire d'afficher ce noeud en premier.
+
+:action:
+~q~.
+Faire la commande ~info --usage info~.
+:end:
+
+
+
+*** Ouvrir un manuel man à l'intérieur d'info.
+
+:action:
+~q~.
+Faire la commande ~info file~.
+:end:
+
+Puisque le système ~info~ est beaucoup moins utilisé, habituellement
+les documents ~info~ sont distribué dans des packages séparés des
+packages principaux.
+
+Quand vous faites une commande ~info~ et que le document ~info~ n'est
+pas installé sur votre système, ~info~ va aller consulter les pages
+~man~ pour vous montrer quelque chose.
+
+:action:
+~q~.
+Faire la commande ~info bash~.
+:end:
+
+Le document info pour ~bash~ n'est pas installé par défaut sur ma
+distribution.
+
+J'ai eu à installer le packet =bash-doc= pour avoir le manuel info.
+
+:action:
+~M-x man RET bash RET~
+:end:
+
+Même si j'ai le manuel info pour ~bash~, si je veux vraiment consulter
+les ~man pages~ via le info reader, on peut quand même ouvrir la page
+de ~man~ en faisant ~M-x man RET~, écrire le nom de la page voulu, et
+faire ~RET~.
+
+*** Intégrations emacs
+
+Parce que emacs et info sont fait par le projet GNU, emacs possède des
+intégrations pour le système info.
+
+Même si je suis un utilisateur d'emacs, j'ai utilisé la commande
+~info~ qui est le =standalone info reader=, parce qu'on n'a pas besoin
+de emacs pour lire la documentation ~info~.
+
+
+
+*** Info, fin
+
+Avant de passer à la suite, je veux juste vous rappelez que ~info~ est
+largement moins utilisé que ~man~.
+
+Même si je viens de consacrer une partie de ma vidéo juste pour
+présenter ~info~, ça ne signifie pas que vous allez avoir besoin
+d'info.
+
+~man~ est plus utile qu'info.
+
+
+
+** help (bash builtin)
+
+Maintenant je vais vous parler de la commande ~help~.
+
+:action:
+~q~.
+Revenir à l'intérieur de emacs. Commande ~fg~.
+Faire la commande ~help~.
+:end:
+
+~help~ est une commande d'aide, mais seulement pour les commandes
+builtin du shell ~bash~.
+
+Puisque c'est un builtin de ~bash~, alors cette commande n'est
+disponible dans les autres shell.
+
+La seule vrai utilité de la commande ~help~, à mon avis, est de lister
+toutes les commandes builtin de bash, *et* afficher le --help de la
+commande ~echo~. Les autre commandes builtin peuvent êtres appelés
+avec --help.
+
+Pour illustrer le problème du --help et du manuel de ~echo~, j'ai un
+petit example pour vous.
+
+*** man echo
+
+#+begin_src bash
+  /usr/bin/echo --version
+
+  echo --version
+
+  # constater que ces 2 commandes echo ne se comportent pas de la même
+  # façon. c'est parce que la 2e utilise la commande echo builtin de
+  # bash.
+  
+
+  man echo
+  # remarquer la note en bas du manuel qui dit de faire attention aux
+  # commandes builtin du shell
+
+  help echo # affiche l'aide de echo builtin
+#+end_src
+
+** Qui écrit les pages de manuels ?
+
+La plupart du temps, c'est les auteurs d'un programme qui écrivent la
+page de manuel pour leur programme.
+
+Pour les programmes qui sont plus des standards avec plusieurs
+implémentations, comme les core utils ou les courriels, vous pouvez
+avoir des différences avec des pages de manuels entre différents
+systèmes.
+
+Il y a beaucoup de différences entre GNU et les BSD, par example.
+
+En plus un petit fun fact: les pages de manuels sur les BSD ont
+tendance à être plus complète et de meilleurs qualités que les pages
+sur linux.
+
+J'ai déjà vu certains programmes ou scripts (trucs random pas très
+utilisé) dont la page de manuel c'était juste le output du ~--help~ de
+la commande qui a été transformé en page de manuel.
+
+J'ai pas pris la peine d'aller voir, mais je devine que le programme /
+script n'avait pas de page de manuel, et que quelqu'un de ma
+distribution a pris la peine de transformer le ~--help~ en une page de
+manuel.
+
+
+** Les commandes trop grosses, ou les langages qui ont leur propre système d'aide
+
+Parfois, quand un programme est gros, comme ~ffmpeg~, ou qu'il n'est
+pas distribué par un package manager, y'ont pas toujours tendance à
+utiliser les systèmes d'aides habituelles comme ~man~ ou ~info~.
+
+Si on doit utiliser ces commandes, il faut gosser un peu avec leur
+système d'aide pour le tester, et c'est du cas par cas ensuite si
+finalement c'est plus rapide d'aller systématiquement sur google ou si
+leur système d'aide est bien faite.
+
+
+** fin
+
+Finalement, quand vous avez essayé de vous aider vous-même, mais que
+vous n'avez pas réussi, il faut aller sur google.
+
+:action:
+Aller sur google avec le mode *eww*.
+Rechercher "info vs man".
+:end:
+
+
+
+Gardez toujours en tête que la source de vérité [vous êtes égoïste si
+vous vous dirigez toujours sur stackoverflow et vous attendez à ce que
+qqn d'autre vous donne son énergie gratuitement].
+
