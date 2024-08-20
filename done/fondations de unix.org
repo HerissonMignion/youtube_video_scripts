@@ -1,0 +1,320 @@
+
+*LES FONDATIONS DU SHELL *NIX*
+
+- entré/sortie standard
+- faire un programme c/c++ pour montrer c'est quoi les arguments qui
+  sont reçu.
+- expliquer que, dans le fond, le *langage* du shell c'est juste un
+  langage pratique pour contrôler les arguments qu'on donne à un
+  programme.
+- abstractions entre elf et scripts via le #! SHEBANG
+  - l'équivalent du shebang sur windows c'est les extensions des
+    fichiers, ce qui est moins puissant.
+  - contrairement aux BSD, linux ne permet d'avoir qu'un seul argument
+    dans le shebang (les espaces seront inclut dans le premier
+    argument).
+
+
+*le clavier est à l'entré standard, ce que la souris est à une
+fenêtre*
+
+
+la seule différence entre bash et les autres langages de script, c'est
+que le monde n'aiment pas bash, *mais moi je ne suis pas comme tout le
+monde*.
+
+
+avoir de l'aide (man, info).
+
+montrer la grandeur et la puissance sur shell sur les systèmes unix.
+
+
+*programme et commandes sont des mots qu'on utilise de façon
+interchangeable*.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+* SCRIPT
+
+** C'est quoi le shell? [CONSOLE]
+
+// emacs
+
+// man bash
+
+Vous êtes probablement habitués, sur un ordinateur, d'utiliser une
+interface graphique pour lancer et utiliser un programme.
+
+Les interfaces graphiques, ça n'a pas toujours exister, et avant les
+interfaces graphiques, on utilisait un ordinateur juste avec du texte.
+
+Le programme qui joue l'équivalent de l'environnement graphique du
+bureau s'appelle le shell, et lui aussi il permet de lancer et
+utiliser des programmes.
+
+En 2024 le shell est encore bien en vie, et y'é pas près de
+disparaître.
+
+Concrètement, le shell est un interpréteur, au même titre que python,
+javascript, perl, php ou ruby, mais contrairement à ces langage de
+programmations normal où la syntaxe est orienté autour de la
+manipulation de variable, de fonctions et de librairies, la
+fonctionnalité principale du langage du shell c'est de lancer d'autres
+programmes.
+
+On appelle aussi les programmes des commandes, de façon
+interchangeable.
+
+** Composition principale d'un programme sur *nix. [CONSOLE]
+
+Sur les système unix, peut importe que vous utilisez des programmes en
+console ou avec un environnement graphique, les programmes ont tous au
+minimum les parties suivantes:
+
+- des arguments, équivalent aux paramètres d'une fonction.
+- des entrées et sorties standard.
+- des signaux.
+
+Puisque le fonction du shell est de lancer d'autres programme, et que
+c'est un langage de script, le langage du shell est conçu pour
+contrôler chacun de ces aspets.
+
+** Comment fonctionnent les entrées/sorties standard [BITMAP]
+
+Avant d'examiner comment le shell démarre un programme, on va regarder
+comment un programme reçoit les touches du clavier et comment il
+affiche du texte à l'écran.
+
+// faire un dessin où je fais un shell. expliquer que le clavier est
+stdin. expliquer que quand on lance un autre programme, celui-ci
+hérite des stdin/stdout du shell parent ou que le shell a configuré.
+
+
+** Faire un programme qui affiche les arguments qu'il reçoit [CONSOLE]
+
+Finalement, une chose à retenir est que *le clavier est à l'entré
+standard des programmes, ce que la souris est à une fenêtre*.
+
+// q (quitter man bash)
+
+// man screen
+
+Il existe des programmes qui permettent de mieux exploiter votre
+terminal comme gnu screen ou emacs.
+
+// quitter man
+
+// quitter emacs
+
+// rester sur le shell, dont ma commande précédante est "emacs".
+
+Si vous avez bien regardé le début de la vidéo, j'ai lancé emacs, qui
+est un programme très flexible, et à l'intérieur de emacs j'ai ouvert
+un émulateur de terminal et un nouveau shell bash.
+
+// réouvrir emacs
+
+// M-x ansi-term
+
+// man execve
+
+Lorsqu'on dit au shell qu'il doit lancer un programme, il doit appeler
+une fonction C du kernel pour communiquer avec le kernel, parce que
+c'est le kernel qui s'occupe de lancer les programmes.
+
+On peut voir dans le manuel de execve que bash doit donner au kernel
+le chemin du programme dans le système de fichier, PLUS les
+arguments et les variables d'environnements.
+
+Je vais faire un programme C qui fera juste imprimmer ses arguments
+pour qu'on puisse examiner c'est quoi que le programme reçoit.
+
+// faire un programme c/c++ qui print ses arguments, et leur nombre.
+// *exit 17*
+
+// utiliser le programme via bash
+
+Comme on le voit, le programme a reçu les arguments qu'on lui a donné
+sur la ligne de commande.
+
+Le nombre retourné par la fonction main nous est également donnée dans
+la variable "$?".
+
+** Le shebang [CONSOLE]
+
+// revenir à "man execve", et montrer le shebang
+
+[mettre line run, aller surligner avec le curseur le texte qui montre
+le shebang]
+
+Le kernel supporte 2 types de fichiers à lancer: les éxécutables
+binaires, ou des fichiers dont la première ligne commence avec un
+"#!", qu'on appelle le shebang.
+
+Y'a beaucoup de langage de programmation, et beaucoup sont des
+langages de script, donc interprétés, ce qui veut dire que c'est un
+programme qui lit le fichier et éxécute les actions indiqué dans son
+langage à lui.
+
+La façon habituelle d'utiliser un langage interprété comme python,
+c'est d'appeler python et lui donner en premier argument le path d'un
+script python, et optionnellement des arguments supplémentaires
+destiné au script.
+
+Du point de vue d'un utilisateur, ça implique que l'utilisateur doit
+savoir dans quel langage un script est écrit ET quel l'interpréteur
+qui doit être utilisé.
+
+Pour permettre aux programmes qui sont écrit dans les nombreux
+langages interprété D'ÊTRES utilisé de la même façon qu'un programme
+compilé, le kernel permet qu'on lui indique l'emplacement du vrai
+programme à appeler sur la première ligne du script, avec le "#!"
+qu'on appelle le shebang.
+
+Comme ça, du point de vu de l'utilisateur, y'a aucune différence entre
+les binaires compilés et les scripts interprétés.
+
+Dans beaucoup de langages, comme javascript, le "#!" shebang est une
+faute de syntaxe, mais c'est permis quand c'est sur la première ligne.
+
+// faire un script qui utilise "#!" pour utiliser mon programme C,
+avec un argument.
+
+Pour que le kernel accepte de charger un fichier comme un processus,
+ce fichier doit avoir la permission d'éxécution. La permission
+d'éxécution n'est pas nécessaire si on appelle directement
+l'interpréteur et qu'on lui passe le script en argument.
+
+// mettre la permission d'éxécution et lancer le script.
+
+// modifier le shebang pour ajouter un 2e argument
+
+Si vous mettez des arguments sur la ligne du shebang, sachez que le
+comportement peut varier selon le kernel que vous utiliser.
+
+Habituellement, les kernels plus commun comme linux envois le restant
+de la ligne comme un seul argument au programme, même avec les
+espaces, mais y'a d'autres kernels moins commun peuvent avoir un
+comportement différent.
+
+Par example, y'a certains kernels qui split selon les espaces et
+donnent ainsi plus d'arguments au programme appelé.
+
+Y'a d'autres kernels qui split selon les espaces, mais n'envoient que
+le premier argument.
+
+Finalement, y'a des kernels qui ignorent complètement les arguments.
+
+** Faire des examples dans des langages de script commun [CONSOLE]
+
+Je vais implémenter un hello world qui print ses arguments dans
+plusieurs langages pour montrer à quel point le shebang est
+universelle à tout les langages de scripts.
+
+// python3
+
+#+begin_src python
+  import sys
+
+  print("hello from python")
+  for arg in sys.argv:
+	  print(arg)
+#+end_src
+
+// perl
+
+#+begin_src perl
+  print("hello from perl\n");
+  foreach my $arg (@ARGV) {
+	  print($arg . "\n");
+  }
+#+end_src
+
+// javascript
+
+#+begin_src javascript
+  console.log("hello from javascript");
+  for (const arg of process.argv) {
+	  console.log(arg);
+  }
+#+end_src
+
+// php
+
+#+begin_src php
+  <?php
+  echo "hello from php\n";
+  foreach ($argv as $arg) {
+	  echo "$arg\n";
+  }
+  ?>
+#+end_src
+
+// bash
+
+#+begin_src bash
+  echo "hello from bash";
+  for arg in "$@"; do
+	  echo "$arg";
+  done;
+#+end_src
+
+Y'a beaucoup de méconception sur la permission d'éxécution sur les
+fichiers.
+
+Vous avez besoin de donner le droit d'éxécution aux fichiers seulement
+quand c'est le kernel qui doit les ouvrir.
+
+Les interpréteurs eux-mêmes habituellement ne regardent pas si un
+fichier a la permission d'éxécution.
+
+** Conclusion [CONSOLE]
+
+Bash et sh sont probablement les shells les plus utilisés dans le
+monde de unix.
+
+Comme vous pouvez le voir avec mon dernier example de script bash,
+bash c'est juste un interpréteur comme les autres langages de script.
+
+La seule différence entre le langage du shell et les autres langages
+de script, c'est que le monde n'aiment pas bash, surtout le jeune
+monde de ma génération qui ont une méconception du terminal, mais moi
+chu pas comme tout le monde.
+
+Je pense que la raison pourquoi les gens n'aiment pas bash ou les
+shell scripts en général, c'est que les gens tombent dans les nombreux
+pièges du word-splitting, par ex, et qu'ensuite ils pensent à tord que
+c'est impossible de faire des scripts capable de gérer les espaces
+correctement.
+
+D'ailleur, y'en a un piège juste ici. Pourquoi ma boucle for
+fonctionne-t-elle malgré que ma variable est entre "" ?
+
+Lorsqu'on se rappelle que le but du langage du shell est de démarrer
+d'autres programme, et qu'on apprends comment contrôler tout les
+aspets en lien avec le passage d'arguments et les autres choses, sh et
+bash font beaucoup de sens, et bash c'est mon langage de choix quand
+je dois manipuler les fichiers, même si je dois manipuler des chaînes
+de texte.
+
+J'espère trouver le temps de faire des vidéos pour expliquer en
+profondeur chaque aspets de bash, comment fonctionnent les conditions,
+les boucles et les redirections, parmis plein de choses.
+
+Finalement, je vous souhaite d'êtres assez curieux pour aller explorer
+à l'extérieur des choses que vous connaissez déjà.
+
